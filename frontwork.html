@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(230, 230, 230);
+        }
+        
+        nav {
+            background-color: rgb(5, 5, 30);
+            padding: 15px 0;
+            text-align: center;
+        }
+        
+        nav ul {
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        li {
+            list-style: none;
+        }
+        section {
+            padding: 50px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        p, ul {
+            font-size: 18px;
+            color: #555;
+        }
+        
+        ul {
+            padding: 0;
+        }
+        
+        ul li {
+            padding: 5px 0;
+        }
+        
+        #contact p {
+            margin: 10px 0;
+        }
+        
+        a[download], .resume-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: rgb(43, 43, 176);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        a[download]:hover, .resume-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">My Skills</a></li>
+            <li><a href="#my education">My Education</a></li>
+            <li><a href="#projects">My Projects</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+            <li><a href="#" onclick="downloadPDF()" class="resume-btn">My Resume</a></li>
+        </ul>
+    </nav>
+    <div id="resume-content">
+        <section id="about">
+            <h1>About Me</h1>
+            <p>I am a pursuing B.Tech 2nd year in LPU. My goal is to become a web developer in my dream company. For that, I have started learning HTML, CSS, JavaScript and some other courses. I have done many certifications in my last 4 semesters based on Salesforce (Trailhead), communication skills from TCS ION, and joined an internship in Interveda for the January batch and in courses  i have 8 certifications. I set my goals to see myself in my dream company after graduation.I have a passion to create a website so i had selected my domain webdevlopment in my 4th semester</p>
+        </section>
+        
+        <section id="skills">
+            <h1>My Skills</h1>
+            <ul>
+                <li>HTML, CSS, JavaScript</li>
+                <li>Communication</li>
+                <li>Java, Python</li>
+                <li>SQL</li>
+            </ul>
+        </section>
+        <section id="my education">
+            <h1>My Education</h1>
+            <ul>
+                <li>B.Tech in Computer Science and Engineering, Lovely Professional University (2022 - Present)</li>
+                <li>Intermediate, Narayana Junior College (2020 - 2022)</li>
+                <li>High School, ZP High School (2019 - 2020)</li>
+            </ul>
+        </section>
+        
+        <section id="projects">
+            <h1>My Projects</h1>
+            <ul>
+                <li>Created a website using HTML, CSS, JavaScript about handloom crafts in my first semester</li>
+                <li>created a AI CHATBOT of photobooth using HTML,CSS,JavaScript for frontend work and python and API of geminiAI </li>
+                <li>Built an accident detection device using a Nano board in my second semester</li>
+                <li>Wrote a research paper on Memory Management in Operating Systems in my third semester</li>
+                <li>created a website using frontend work with HTML,CSS,JavaScript and backend work with php , MYSQL about Bring Your Own Device(BYOD)</li>
+            </ul>
+        </section>
+        
+        <section id="contact">
+            <h1>Contact Me</h1>
+            <p>Email: venkatrajeshnaidu@gmail.com</p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/somineni-venkat-rajesh/" target="_blank">Visit My LinkedIn</a></p>
+            <p>GitHub: <a href="https://github.com/sominenivenkatarajesh" target="_blank">Visit My GitHub</a></p>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="s1.js"></script>
+    <script>
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const content = document.getElementById("resume-content");
+
+            const canvas = await html2canvas(content, {
+                scale: 2
+            });
+
+            const imgData = canvas.toDataURL("image/png");
+            const pdf = new jsPDF("p", "mm", "a4");
+
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+            pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+            pdf.save("My_Resume.pdf");
+        }
+    </script>
+</body>
+</html>
